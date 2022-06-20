@@ -1,0 +1,10 @@
+---
+ - hosts: localhost
+   gather_facts: yes
+   become: yes
+   tasks:
+    - block:
+       - copy: src=/home/ec2-used/shell/if.sh dest=/home/if.sh
+      rescue:
+        - debug: msg="Enter correct path"
+

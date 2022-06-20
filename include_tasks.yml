@@ -1,0 +1,8 @@
+---
+ - hosts: localhost
+   gather_facts: yes
+   become: yes
+   tasks: 
+    - copy: src=/home/ec2-user/shell/if.sh  dest=/home/prod/
+      ignore_errors: yes
+    - include_tasks: install_httpd_on_RedHat.yml

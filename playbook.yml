@@ -1,0 +1,7 @@
+---
+ - hosts: localhost
+   become: yes
+   gather_facts: yes
+   tasks:
+     - debug:
+         msg: "{{ansible_os_family}}"

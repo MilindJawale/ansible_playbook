@@ -1,0 +1,26 @@
+---
+ - hosts: localhost
+   gather_facts: yes
+   become: yes
+   tasks:
+    - name: update server
+      yum:
+        name: "*"
+        state: latest
+    - name: install java on server
+      yum:
+        name: java-1.8.0-openjdk
+        state: present
+    - name: download tomcat
+      get_url:
+        url: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.64/bin/apache-tomcat-9.0.64.tar.gz"
+        dest: /usr/local
+    - name: Extracting file
+      unarchive:
+        src: "/usr/local/apache-tomcat-9.0.64.tar.gz"
+        dest: /usr/local
+    - name: renaming 
+      command: mv /usr/local/apache-tomcat-9.0.64 /usr/local/latest
+    - name: starting tomcat server
+      shell: nohup /usr/local/latest/bin/startup.sh &  
+        

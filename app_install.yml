@@ -1,0 +1,23 @@
+---
+ - hosts: localhost
+   gather_facts: yes
+   become: yes
+   vars_prompt:
+     - name: apt
+       prompt: Enter the application
+       private: no
+     - name: state
+       prompt: Enter state of application
+       private: no
+   tasks:
+     - name: Install {{apt}} on server
+       yum:
+        name: "{{apt}}"
+        state: "{{state}}"
+       when: ansible_os_family=="RedHat"
+       notify: Installed
+   handlers:
+      - name: Installed
+        debug: 
+         msg: "application {{apt}} installed on server successfully"
+
